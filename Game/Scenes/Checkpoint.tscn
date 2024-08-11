@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://fw7q8t4mjw0t"]
+
+[ext_resource type="Texture2D" uid="uid://b4c1mxujh72it" path="res://assets/UI/cursor.png" id="1_scvwv"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bdbce"]
+size = Vector2(32, 32)
+
+[node name="Area2D" type="StaticBody2D" groups=["Checkpoint"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(16, 16)
+shape = SubResource("RectangleShape2D_bdbce")
+debug_color = Color(0.980392, 0.137255, 0, 0.419608)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(2, 2)
+texture = ExtResource("1_scvwv")
+centered = false

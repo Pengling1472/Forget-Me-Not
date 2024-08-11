@@ -1,0 +1,23 @@
+[
+	{
+		"name": "Amamya",
+		"text": "Hi..",
+		"emotion": "amaya_normal",
+		"speed": 0.05,
+		"stop": false
+	},
+	{
+		"name": "Amamya",
+		"text": "...",
+		"emotion": "amaya_normal",
+		"speed": 0.05,
+		"stop": true
+	},
+	{
+		"name": "Amamya",
+		"text": "Can you please leave",
+		"emotion": "amaya_normal",
+		"speed": 0.05,
+		"stop": true
+	}
+]

@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://6ny74krg2f4t"]
+
+[ext_resource type="Texture2D" uid="uid://dv8rkci4e00cw" path="res://assets/Props/Npc.png" id="1_losl8"]
+[ext_resource type="Script" path="res://Scripts/NPC.cs" id="1_y667r"]
+[ext_resource type="Texture2D" uid="uid://c5r3vlsiydfvj" path="res://assets/characters/Shadow.png" id="2_mgx78"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hfpeq"]
+size = Vector2(32, 32)
+
+[node name="NPC" type="CharacterBody2D" groups=["Interactable"]]
+z_index = 1
+script = ExtResource("1_y667r")
+
+[node name="Character" type="Sprite2D" parent="."]
+position = Vector2(16, 1)
+texture = ExtResource("1_losl8")
+hframes = 3
+vframes = 10
+
+[node name="Shadow" type="Sprite2D" parent="."]
+position = Vector2(16, 16)
+texture = ExtResource("2_mgx78")
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+position = Vector2(16, 16)
+shape = SubResource("RectangleShape2D_hfpeq")

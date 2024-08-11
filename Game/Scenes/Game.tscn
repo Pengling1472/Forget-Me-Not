@@ -1,0 +1,265 @@
+[gd_scene load_steps=17 format=3 uid="uid://cbghvn5mi8ft5"]
+
+[ext_resource type="Script" path="res://Scripts/Game.cs" id="1_1r2j2"]
+[ext_resource type="PackedScene" uid="uid://cm6ret4qg42hc" path="res://Scenes/Main.tscn" id="2_0um7s"]
+[ext_resource type="Texture2D" uid="uid://e75flmucrb3u" path="res://assets/Borders/main.png" id="2_bnt5c"]
+[ext_resource type="PackedScene" uid="uid://1h5wo05lav32" path="res://Scenes/Dialog_Box.tscn" id="3_aojlk"]
+[ext_resource type="Shader" path="res://Blur.gdshader" id="4_3xj7f"]
+[ext_resource type="Texture2D" uid="uid://bdxs2mc540dbc" path="res://assets/characters/Animation_001.png" id="6_b8ifd"]
+[ext_resource type="PackedScene" uid="uid://c1r2moac1msaf" path="res://Scenes/Settings.tscn" id="6_jjvho"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dydmk"]
+shader = ExtResource("4_3xj7f")
+shader_parameter/blur_amount = 3.0
+
+[sub_resource type="Animation" id="Animation_pwcfc"]
+length = 0.001
+
+[sub_resource type="Animation" id="Animation_8nimc"]
+resource_name = "toggle_blur"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../ColorRect:modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../ColorRect:material:shader_parameter/blur_amount")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 3, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.5)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_0ocm3"]
+_data = {
+"RESET": SubResource("Animation_pwcfc"),
+"toggle_blur": SubResource("Animation_8nimc")
+}
+
+[sub_resource type="Animation" id="Animation_eailv"]
+resource_name = "FadeIn"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 0.5001),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_2evns"]
+resource_name = "FadeOut"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_rioap"]
+_data = {
+"FadeIn": SubResource("Animation_eailv"),
+"FadeOut": SubResource("Animation_2evns")
+}
+
+[sub_resource type="Animation" id="Animation_2huaw"]
+resource_name = "Animation"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Icon/Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [13, 12, 14, 12]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_pcj6m"]
+_data = {
+"Animation": SubResource("Animation_2huaw")
+}
+
+[node name="CanvasLayer" type="CanvasLayer"]
+
+[node name="Game" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_1r2j2")
+
+[node name="Border" type="TextureRect" parent="Game"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -480.0
+offset_top = -270.0
+offset_right = 480.0
+offset_bottom = 270.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(480, 270)
+texture = ExtResource("2_bnt5c")
+
+[node name="Scenes" type="SubViewportContainer" parent="Game"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -320.0
+offset_top = -240.0
+offset_right = 320.0
+offset_bottom = 240.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(320, 240)
+
+[node name="ColorRect" type="ColorRect" parent="Game/Scenes"]
+process_mode = 3
+material = SubResource("ShaderMaterial_dydmk")
+layout_mode = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Game/Scenes"]
+process_mode = 3
+root_node = NodePath("../SubViewport")
+libraries = {
+"": SubResource("AnimationLibrary_0ocm3")
+}
+
+[node name="SubViewport" type="SubViewport" parent="Game/Scenes"]
+handle_input_locally = false
+canvas_item_default_texture_filter = 3
+size = Vector2i(640, 480)
+render_target_update_mode = 4
+
+[node name="Menu" parent="Game/Scenes/SubViewport" instance=ExtResource("2_0um7s")]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -320.0
+offset_top = -240.0
+offset_right = 320.0
+offset_bottom = 240.0
+
+[node name="PopupScenes" type="Control" parent="Game"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -320.0
+offset_top = -240.0
+offset_right = 320.0
+offset_bottom = 240.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(320, 240)
+
+[node name="DialogBox" parent="Game/PopupScenes" instance=ExtResource("3_aojlk")]
+process_mode = 4
+layout_mode = 1
+
+[node name="Settings" parent="Game/PopupScenes" instance=ExtResource("6_jjvho")]
+process_mode = 4
+layout_mode = 1
+
+[node name="Loading" type="Control" parent="Game"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -320.0
+offset_top = -240.0
+offset_right = 320.0
+offset_bottom = 240.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(320, 240)
+
+[node name="LoadingBackground" type="ColorRect" parent="Game/Loading"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -480.0
+offset_top = -270.0
+offset_right = 480.0
+offset_bottom = 270.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Icon" type="Control" parent="Game/Loading"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -40.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Game/Loading/Icon"]
+texture = ExtResource("6_b8ifd")
+centered = false
+hframes = 18
+frame = 13
+
+[node name="LoadingAnimation" type="AnimationPlayer" parent="Game/Loading"]
+root_node = NodePath("../LoadingBackground")
+libraries = {
+"": SubResource("AnimationLibrary_rioap")
+}
+
+[node name="IconAnimation" type="AnimationPlayer" parent="Game/Loading"]
+libraries = {
+"": SubResource("AnimationLibrary_pcj6m")
+}

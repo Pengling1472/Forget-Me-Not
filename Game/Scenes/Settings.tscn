@@ -1,0 +1,578 @@
+[gd_scene load_steps=9 format=3 uid="uid://c1r2moac1msaf"]
+
+[ext_resource type="Script" path="res://Scripts/Settings.cs" id="1_2h6t6"]
+[ext_resource type="Theme" uid="uid://b7vnd04481oo8" path="res://Themes/Theme.tres" id="3_celeg"]
+[ext_resource type="Texture2D" uid="uid://qmul2l7ckcto" path="res://assets/UI/smaller_blue.png" id="3_oialv"]
+[ext_resource type="Texture2D" uid="uid://2ek7ne5rr4v2" path="res://assets/UI/blue.png" id="4_gvi8c"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3qao6"]
+bg_color = Color(0, 0, 0, 0.784314)
+
+[sub_resource type="Animation" id="Animation_7amdx"]
+resource_name = "Open"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = false
+tracks/0/path = NodePath("MarginContainer:scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MarginContainer:position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 0.2),
+"update": 0,
+"values": [Vector2(0, 480), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_hqgjb"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MarginContainer:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 480)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_wdi4y"]
+_data = {
+"Open": SubResource("Animation_7amdx"),
+"RESET": SubResource("Animation_hqgjb")
+}
+
+[node name="Settings" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_2h6t6")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_top = 480.0
+offset_right = 640.0
+offset_bottom = 960.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3_celeg")
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_bottom = 32
+
+[node name="Tabs" type="TextureRect" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+texture = ExtResource("3_oialv")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/Tabs"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Video" type="Button" parent="MarginContainer/Tabs/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+focus_neighbor_right = NodePath("../Audio")
+focus_neighbor_bottom = NodePath("../../../TabContainer/VideoContainer/VBoxContainer/FullscreenContainer/Fullscreen")
+mouse_filter = 2
+theme = ExtResource("3_celeg")
+text = "Video"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/Tabs/HBoxContainer/Video"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = 4.0
+grow_horizontal = 2
+grow_vertical = 2
+bbcode_enabled = true
+text = "[wave amp=20.0 freq=3.0]Video[/wave]"
+fit_content = true
+
+[node name="Audio" type="Button" parent="MarginContainer/Tabs/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+focus_neighbor_left = NodePath("../Video")
+focus_neighbor_right = NodePath("../Controls")
+mouse_filter = 2
+theme = ExtResource("3_celeg")
+text = "Audio"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/Tabs/HBoxContainer/Audio"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = 4.0
+grow_horizontal = 2
+grow_vertical = 2
+bbcode_enabled = true
+text = "[wave amp=20.0 freq=3.0]Audio[/wave]"
+fit_content = true
+
+[node name="Controls" type="Button" parent="MarginContainer/Tabs/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+focus_neighbor_left = NodePath("../Audio")
+mouse_filter = 2
+theme = ExtResource("3_celeg")
+text = "Controls"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/Tabs/HBoxContainer/Controls"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+bbcode_enabled = true
+text = "[wave amp=20.0 freq=3.0]Controls[/wave]"
+fit_content = true
+
+[node name="TabContainer" type="TextureRect" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+texture = ExtResource("4_gvi8c")
+
+[node name="VideoContainer" type="MarginContainer" parent="MarginContainer/TabContainer"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3_celeg")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/TabContainer/VideoContainer"]
+layout_mode = 2
+
+[node name="FullscreenContainer" type="HBoxContainer" parent="MarginContainer/TabContainer/VideoContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="FullscreenLabel" type="Label" parent="MarginContainer/TabContainer/VideoContainer/VBoxContainer/FullscreenContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+text = "Fullscreen"
+
+[node name="Fullscreen" type="Button" parent="MarginContainer/TabContainer/VideoContainer/VBoxContainer/FullscreenContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+focus_neighbor_left = NodePath(".")
+focus_neighbor_top = NodePath("../../../../../Tabs/HBoxContainer/Video")
+focus_neighbor_right = NodePath(".")
+mouse_filter = 2
+theme = ExtResource("3_celeg")
+text = "OFF"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/TabContainer/VideoContainer/VBoxContainer/FullscreenContainer/Fullscreen"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = 4.0
+grow_horizontal = 2
+grow_vertical = 2
+bbcode_enabled = true
+text = "[wave amp=20.0 freq=3.0]OFF[/wave]"
+fit_content = true
+
+[node name="WindowScaleContainer" type="HBoxContainer" parent="MarginContainer/TabContainer/VideoContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="WindowScaleLabel" type="Label" parent="MarginContainer/TabContainer/VideoContainer/VBoxContainer/WindowScaleContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+text = "Window Scale"
+
+[node name="WindowScale" type="Button" parent="MarginContainer/TabContainer/VideoContainer/VBoxContainer/WindowScaleContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+focus_neighbor_left = NodePath(".")
+focus_neighbor_right = NodePath(".")
+mouse_filter = 2
+theme = ExtResource("3_celeg")
+text = "< 1x >"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/TabContainer/VideoContainer/VBoxContainer/WindowScaleContainer/WindowScale"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = 4.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3_celeg")
+bbcode_enabled = true
+text = "[wave amp=20.0 freq=3.0]< 1x >[/wave]"
+fit_content = true
+
+[node name="AudioContainer" type="MarginContainer" parent="MarginContainer/TabContainer"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3_celeg")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/TabContainer/AudioContainer"]
+layout_mode = 2
+
+[node name="MusicContainer" type="HBoxContainer" parent="MarginContainer/TabContainer/AudioContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="MusicLabel" type="Label" parent="MarginContainer/TabContainer/AudioContainer/VBoxContainer/MusicContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme = ExtResource("3_celeg")
+text = "Music"
+horizontal_alignment = 1
+
+[node name="MusicSlider" type="HSlider" parent="MarginContainer/TabContainer/AudioContainer/VBoxContainer/MusicContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+focus_neighbor_top = NodePath("../../../../../Tabs/HBoxContainer/Audio")
+mouse_filter = 2
+theme = ExtResource("3_celeg")
+step = 5.0
+value = 50.0
+
+[node name="MusicPercent" type="Label" parent="MarginContainer/TabContainer/AudioContainer/VBoxContainer/MusicContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme = ExtResource("3_celeg")
+text = "50%"
+horizontal_alignment = 1
+
+[node name="SoundContainer" type="HBoxContainer" parent="MarginContainer/TabContainer/AudioContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="SoundLabel" type="Label" parent="MarginContainer/TabContainer/AudioContainer/VBoxContainer/SoundContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme = ExtResource("3_celeg")
+text = "Sound"
+horizontal_alignment = 1
+
+[node name="SoundSlider" type="HSlider" parent="MarginContainer/TabContainer/AudioContainer/VBoxContainer/SoundContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+mouse_filter = 2
+theme = ExtResource("3_celeg")
+step = 5.0
+value = 50.0
+
+[node name="SoundPercent" type="Label" parent="MarginContainer/TabContainer/AudioContainer/VBoxContainer/SoundContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme = ExtResource("3_celeg")
+text = "50%"
+horizontal_alignment = 1
+
+[node name="ControlsContainer" type="MarginContainer" parent="MarginContainer/TabContainer"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3_celeg")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/TabContainer/ControlsContainer"]
+layout_mode = 2
+
+[node name="TabHBoxContainer" type="HBoxContainer" parent="MarginContainer/TabContainer/ControlsContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="MarginContainer/TabContainer/ControlsContainer/VBoxContainer/TabHBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="MarginContainer/TabContainer/ControlsContainer/VBoxContainer/TabHBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+text = "Keyboard"
+
+[node name="UpHBoxContainer" type="HBoxContainer" parent="MarginContainer/TabContainer/ControlsContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="UpLabel" type="Label" parent="MarginContainer/TabContainer/ControlsContainer/VBoxContainer/UpHBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+theme = ExtResource("3_celeg")
+text = "Up ( ↑ )"
+
+[node name="Up" type="Button" parent="MarginContainer/TabContainer/ControlsContainer/VBoxContainer/UpHBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+focus_neighbor_left = NodePath(".")
+focus_neighbor_right = NodePath(".")
+theme = ExtResource("3_celeg")
+text = "Up"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/TabContainer/ControlsContainer/VBoxContainer/UpHBoxContainer/Up"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = 4.0
+grow_horizontal = 2
+grow_vertical = 2
+bbcode_enabled = true
+fit_content = true
+
+[node name="LeftHBoxContainer" type="HBoxContainer" parent="MarginContainer/TabContainer/ControlsContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="LeftLabel" type="Label" parent="MarginContainer/TabContainer/ControlsContainer/VBoxContainer/LeftHBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+theme = ExtResource("3_celeg")
+text = "Left ( ← )"
+
+[node name="Left" type="Button" parent="MarginContainer/TabContainer/ControlsContainer/VBoxContainer/LeftHBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+focus_neighbor_left = NodePath(".")
+focus_neighbor_right = NodePath(".")
+theme = ExtResource("3_celeg")
+text = "Left"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/TabContainer/ControlsContainer/VBoxContainer/LeftHBoxContainer/Left"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+bbcode_enabled = true
+fit_content = true
+
+[node name="DownHBoxContainer" type="HBoxContainer" parent="MarginContainer/TabContainer/ControlsContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="DownLabel" type="Label" parent="MarginContainer/TabContainer/ControlsContainer/VBoxContainer/DownHBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+text = "Down ( ↓ )"
+
+[node name="Down" type="Button" parent="MarginContainer/TabContainer/ControlsContainer/VBoxContainer/DownHBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+focus_neighbor_left = NodePath(".")
+focus_neighbor_right = NodePath(".")
+theme = ExtResource("3_celeg")
+text = "Down"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/TabContainer/ControlsContainer/VBoxContainer/DownHBoxContainer/Down"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+bbcode_enabled = true
+fit_content = true
+
+[node name="RightHBoxContainer" type="HBoxContainer" parent="MarginContainer/TabContainer/ControlsContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="RightLabel" type="Label" parent="MarginContainer/TabContainer/ControlsContainer/VBoxContainer/RightHBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+text = "Right ( → )"
+
+[node name="Right" type="Button" parent="MarginContainer/TabContainer/ControlsContainer/VBoxContainer/RightHBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+focus_neighbor_left = NodePath(".")
+focus_neighbor_right = NodePath(".")
+theme = ExtResource("3_celeg")
+text = "Right"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/TabContainer/ControlsContainer/VBoxContainer/RightHBoxContainer/Right"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+bbcode_enabled = true
+fit_content = true
+
+[node name="MenuHBoxContainer" type="HBoxContainer" parent="MarginContainer/TabContainer/ControlsContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="MenuLabel" type="Label" parent="MarginContainer/TabContainer/ControlsContainer/VBoxContainer/MenuHBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+theme = ExtResource("3_celeg")
+text = "Menu"
+
+[node name="Menu" type="Button" parent="MarginContainer/TabContainer/ControlsContainer/VBoxContainer/MenuHBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+focus_neighbor_left = NodePath(".")
+focus_neighbor_right = NodePath(".")
+theme = ExtResource("3_celeg")
+text = "X"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/TabContainer/ControlsContainer/VBoxContainer/MenuHBoxContainer/Menu"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+bbcode_enabled = true
+fit_content = true
+
+[node name="ConfirmHBoxContainer" type="HBoxContainer" parent="MarginContainer/TabContainer/ControlsContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="ConfirmLabel" type="Label" parent="MarginContainer/TabContainer/ControlsContainer/VBoxContainer/ConfirmHBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+theme = ExtResource("3_celeg")
+text = "Confirm"
+
+[node name="Confirm" type="Button" parent="MarginContainer/TabContainer/ControlsContainer/VBoxContainer/ConfirmHBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+focus_neighbor_left = NodePath(".")
+focus_neighbor_right = NodePath(".")
+theme = ExtResource("3_celeg")
+text = "Z"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/TabContainer/ControlsContainer/VBoxContainer/ConfirmHBoxContainer/Confirm"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+bbcode_enabled = true
+fit_content = true
+
+[node name="RunHBoxContainer" type="HBoxContainer" parent="MarginContainer/TabContainer/ControlsContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="RunLabel" type="Label" parent="MarginContainer/TabContainer/ControlsContainer/VBoxContainer/RunHBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+theme = ExtResource("3_celeg")
+text = "Run"
+
+[node name="Run" type="Button" parent="MarginContainer/TabContainer/ControlsContainer/VBoxContainer/RunHBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+focus_neighbor_left = NodePath(".")
+focus_neighbor_right = NodePath(".")
+theme = ExtResource("3_celeg")
+text = "Shift"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/TabContainer/ControlsContainer/VBoxContainer/RunHBoxContainer/Run"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+bbcode_enabled = true
+fit_content = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3_celeg")
+theme_override_styles/panel = SubResource("StyleBoxFlat_3qao6")
+
+[node name="Label" type="Label" parent="Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3_celeg")
+text = "Press a key"
+
+[node name="SettingAnimations" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_wdi4y")
+}
+
+[connection signal="pressed" from="MarginContainer/TabContainer/VideoContainer/VBoxContainer/FullscreenContainer/Fullscreen" to="." method="OnDisplayButtonPressed"]
+[connection signal="value_changed" from="MarginContainer/TabContainer/AudioContainer/VBoxContainer/MusicContainer/MusicSlider" to="." method="OnSliderValueChanged" binds= ["Music"]]
+[connection signal="value_changed" from="MarginContainer/TabContainer/AudioContainer/VBoxContainer/SoundContainer/SoundSlider" to="." method="OnSliderValueChanged" binds= ["Sound"]]
